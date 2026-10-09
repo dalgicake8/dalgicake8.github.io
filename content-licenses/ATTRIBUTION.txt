@@ -1,0 +1,9 @@
+# Vocabulary data attribution
+
+The NGSL 1.2 and NAWL 1.2 are by Charles Browne, Brent Culligan and Joseph Phillips (2013). NGSL-GR 1.0 is by Browne and Culligan (2024). The current official project site is https://www.newgeneralservicelist.com/ (the linked author-operated pages are hosted at https://charliebrownecompany.squarespace.com/). These lists are licensed under Creative Commons Attribution-ShareAlike 4.0: https://creativecommons.org/licenses/by-sa/4.0/ .
+
+ROOTLY has adapted the lists by selecting content words, normalising listed spelling variants, combining editorial pilot and topic seeds, assigning provisional priorities, and creating three distinct 2,000-entry memberships. Selection and priority are ROOTLY judgements, not official examination lists or measured probabilities. The derived candidate tables and source-based foundation data are released under CC BY-SA 4.0. This data licence does not change the licence of the application's source code or the separately authored ROOTLY pilot passages.
+
+Open English WordNet 2025 is by the Open English Wordnet Team, derived from Princeton University WordNet. Source: https://en-word.net/ and https://github.com/globalwordnet/english-wordnet . OEWN modifications are licensed under CC BY 4.0, with the underlying WordNet licence retained. Full supplied notices are in OEWN-LICENSE.md and WordNet-LICENSE.txt. ROOTLY selects a representative sense for foundation retrieval, preserves source sense/synset IDs, and uses source definitions, available pronunciation data, synonyms and examples. Other senses stay in the source-backed candidate file for subsequent editorial work.
+
+Original ROOTLY words and passages retain their existing attribution and review records. The 52 new pilot entries and 104 passages were authored for this project; their automatic assembly and author's content checks are not an independent external linguistic review.
