@@ -1,7 +1,7 @@
 /* The production build replaces these two values with a content hash and the
    complete exported asset list. Development never registers this worker. */
-const CACHE_NAME = "rootly-a0469ce1a920a11e8667";
-const PRECACHE_URLS = ["/404.html","/404/index.html","/__next.__PAGE__.txt","/__next._full.txt","/__next._tree.txt","/_next/static/chunks/02fh7_m5mrih8.js","/_next/static/chunks/0cz1d0mv5g_q7.js","/_next/static/chunks/0z34-oiy6ex7f.js","/_next/static/chunks/1po3blm2-yk6o.js","/_next/static/chunks/23gy81t9hz7cu.js","/_next/static/chunks/245s_1gxdir-i.css","/_next/static/chunks/25mezo6lorlsi.js","/_next/static/chunks/2d5wows3_5ua3.css","/_next/static/chunks/2j3av267jdox0.js","/_next/static/chunks/3fntmmi971322.js","/_next/static/chunks/3l04zcqx63h3y.js","/_next/static/chunks/turbopack-3g42fc0wsjqwg.js","/_next/static/media/53b9e256198e5412-s.390ncx5urfkfu.woff2","/_next/static/media/7178b3e590c64307-s.21jp631_3pja2.woff2","/_next/static/media/8a480f0b521d4e75-s.1qq4vpdcun5oj.woff2","/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2","/_next/static/media/favicon.2vob68tjqpejf.ico","/_next/static/media/fef07dbb0973bf53-s.3p2_lha1f2xer.woff2","/_next/static/tX9Twzz_ayaAzuvnxoPD5/_buildManifest.js","/_next/static/tX9Twzz_ayaAzuvnxoPD5/_clientMiddlewareManifest.js","/_next/static/tX9Twzz_ayaAzuvnxoPD5/_ssgManifest.js","/_not-found/__next._full.txt","/_not-found/__next._not-found.__PAGE__.txt","/_not-found/__next._tree.txt","/_not-found/index.html","/_not-found/index.txt","/app-icon-192.png","/app-icon-512.png","/app-icon.svg","/content-licenses/ATTRIBUTION.txt","/content-licenses/OEWN-LICENSE.txt","/content-licenses/WordNet-LICENSE.txt","/favicon.ico","/file.svg","/globe.svg","/index.html","/index.txt","/manifest.webmanifest","/next.svg","/vercel.svg","/window.svg"];
+const CACHE_NAME = "rootly-3e86f4ad16bee50666e5";
+const PRECACHE_URLS = ["/404.html","/404/index.html","/__next.__PAGE__.txt","/__next._full.txt","/__next._tree.txt","/_next/static/bT6wYZjzxCYclZ5KG1gmr/_buildManifest.js","/_next/static/bT6wYZjzxCYclZ5KG1gmr/_clientMiddlewareManifest.js","/_next/static/bT6wYZjzxCYclZ5KG1gmr/_ssgManifest.js","/_next/static/chunks/02fh7_m5mrih8.js","/_next/static/chunks/0cz1d0mv5g_q7.js","/_next/static/chunks/0xszjk70e48ov.js","/_next/static/chunks/0z34-oiy6ex7f.js","/_next/static/chunks/1po3blm2-yk6o.js","/_next/static/chunks/1sn9gapvywn7-.css","/_next/static/chunks/23gy81t9hz7cu.js","/_next/static/chunks/25mezo6lorlsi.js","/_next/static/chunks/2d5wows3_5ua3.css","/_next/static/chunks/3fntmmi971322.js","/_next/static/chunks/3l04zcqx63h3y.js","/_next/static/chunks/turbopack-3g42fc0wsjqwg.js","/_next/static/media/53b9e256198e5412-s.390ncx5urfkfu.woff2","/_next/static/media/7178b3e590c64307-s.21jp631_3pja2.woff2","/_next/static/media/8a480f0b521d4e75-s.1qq4vpdcun5oj.woff2","/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2","/_next/static/media/favicon.2vob68tjqpejf.ico","/_next/static/media/fef07dbb0973bf53-s.3p2_lha1f2xer.woff2","/_not-found/__next._full.txt","/_not-found/__next._not-found.__PAGE__.txt","/_not-found/__next._tree.txt","/_not-found/index.html","/_not-found/index.txt","/app-icon-192.png","/app-icon-512.png","/app-icon.svg","/content-licenses/ATTRIBUTION.txt","/content-licenses/OEWN-LICENSE.txt","/content-licenses/WordNet-LICENSE.txt","/favicon.ico","/file.svg","/globe.svg","/index.html","/index.txt","/manifest.webmanifest","/next.svg","/vercel.svg","/window.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -10,7 +10,13 @@ self.addEventListener("install", (event) => {
       try {
         const response = await fetch(url, { cache: "reload" });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        await cache.put(url, response);
+        // Finish the network stream before Chrome's cache writer consumes large
+        // vocabulary chunks. Keep decoded bodies consistent with their headers.
+        const body = await response.arrayBuffer();
+        const headers = new Headers(response.headers);
+        headers.delete("content-encoding");
+        headers.delete("content-length");
+        await cache.put(url, new Response(body, { status: response.status, statusText: response.statusText, headers }));
       }
       catch (error) { throw new Error(`${url}: ${String(error)}`); }
       }));
