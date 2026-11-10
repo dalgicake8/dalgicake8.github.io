@@ -4,4 +4,4 @@ Application source is maintained privately. This repository contains only the pu
 
 Website: https://dalgicake8.github.io/
 
-Source commit: bc79d5d1ab54654c8674926d4245e349bc857af4
+Source commit: 3636b19a1ae0dd02682d982ca18ec6d34d64a137
